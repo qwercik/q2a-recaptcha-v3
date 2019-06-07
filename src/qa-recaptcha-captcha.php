@@ -8,8 +8,8 @@ class qa_recaptcha_captcha
 {
     public function option_default($option)
     {
-		return admin_form::get_default_value($option);
-	}
+        return admin_form::get_default_value($option);
+    }
 
     public function load_module()
     {
@@ -36,7 +36,7 @@ class qa_recaptcha_captcha
             "    grecaptcha.ready(function() {",
             "        grecaptcha.execute('${publicKey}', {action: 'login'}).then(function(token) {",
             "            document.querySelector('#g-recaptcha-response').value = token;",
-            '        });',
+            "        });",
             "    });",
             "});"
             
