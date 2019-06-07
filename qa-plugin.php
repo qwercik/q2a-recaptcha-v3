@@ -30,7 +30,7 @@
 	Plugin Author URI: github.com/qwercik
 	Plugin License: GPLv2
 	Plugin Minimum Question2Answer Version: 1.7
-	Plugin Update Check URI: https://github.com/qwercik/q2a-recaptcha-v3
+	Plugin Update Check URI: https://raw.githubusercontent.com/qwercik/q2a-recaptcha-v3/master/metadata.json
 */
 
 
