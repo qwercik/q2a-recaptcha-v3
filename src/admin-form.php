@@ -77,7 +77,7 @@ class admin_form
 
     public function is_filled()
     {
-        return !(empty($this->publicKey) || empty($this->privateKey) /*|| empty($this->minScore)*/);
+        return !(empty($this->publicKey) || empty($this->privateKey) || empty($this->minScore));
     }
     
 
@@ -102,7 +102,7 @@ class admin_form
             ];
         } else {
             $message = strtr(qa_lang_html('recaptcha/must_sign_up'), [
-                '$1' => '<a href="'.qa_html(ReCaptcha::getSignupUrl()).'" target="_blank">',
+                '$1' => '<a href="https://www.google.com/recaptcha/admin" target="_blank">',
                 '$2' => '</a>',
             ]);
             
