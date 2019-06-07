@@ -101,7 +101,7 @@ class admin_form
                 'message' => null,
             ];
         } else {
-            $message = strtr(qa_lang_html('recaptcha/must_sign_up'), [
+            $message = strtr(qa_lang_html('recaptcha/form_not_filled'), [
                 '$1' => '<a href="https://www.google.com/recaptcha/admin" target="_blank">',
                 '$2' => '</a>',
             ]);
