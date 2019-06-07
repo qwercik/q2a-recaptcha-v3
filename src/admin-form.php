@@ -6,6 +6,7 @@ class admin_form
     {
         $this->publicKey = qa_opt('recaptcha_public_key');
         $this->privateKey = qa_opt('recaptcha_private_key');
+        $this->minScore = qa_opt('recaptcha_min_score');
     }
 
     public function generate_view()
@@ -15,9 +16,11 @@ class admin_form
         if ($this->updated) {
             $this->publicKey = trim(qa_post_text('recaptcha_public_key_field'));
             $this->privateKey = trim(qa_post_text('recaptcha_private_key_field'));
-            
+            $this->minScore = trim(qa_post_text('recaptcha_min_score_field'));
+
             qa_opt('recaptcha_public_key', $this->publicKey);
             qa_opt('recaptcha_private_key', $this->privateKey);
+            qa_opt('recaptcha_min_score', $this->minScore);
         }
 
         $response = $this->get_response();
@@ -36,6 +39,12 @@ class admin_form
                     'label' => qa_lang_html('recaptcha/secret_key'),
                     'value' => $this->privateKey,
                     'tags' => 'name="recaptcha_private_key_field"',
+                ],
+
+                'min_score' => [
+                    'label' => qa_lang_html('recaptcha/min_score'),
+                    'value' => $this->minScore,
+                    'tags' => 'name="recaptcha_min_score_field"',
                     'error' => $response['message'],
                 ],
             ],
@@ -61,11 +70,28 @@ class admin_form
         return $this->privateKey;
     }
 
+    public function get_min_score()
+    {
+        return $this->minScore;
+    }
+
     public function is_filled()
     {
-        return !(empty($this->publicKey) || empty($this->privateKey));
+        return !(empty($this->publicKey) || empty($this->privateKey) /*|| empty($this->minScore)*/);
     }
     
+
+    public static function get_default_value($option)
+    {
+        $defaultValues = [
+            'recaptcha_public_key' => '',
+            'recaptcha_private_key' => '',
+            'recaptcha_min_score' => 0.5,
+        ];
+
+        return isset($defaultValues[$option]) ? $defaultValues[$option] : null;
+    }
+
 
     private function get_response()
     {
@@ -89,7 +115,9 @@ class admin_form
 
 
     private $updated;
+
     private $publicKey;
     private $privateKey;
+    private $minScore;
 }
 

@@ -1,12 +1,16 @@
 <?php
 
-require_once __DIR__ . '/recaptchalib.php';
 require_once __DIR__ . '/admin-form.php';
 require_once __DIR__ . '/user-verifier.php';
 
 
 class qa_recaptcha_captcha
 {
+    public function option_default($option)
+    {
+		return admin_form::get_default_value($option);
+	}
+
     public function load_module()
     {
         $this->adminForm = new admin_form();
@@ -46,10 +50,10 @@ class qa_recaptcha_captcha
     public function validate_post(&$error)
     {
         $privateKey = $this->adminForm->get_private_key();
+        $minScore = $this->adminForm->get_min_score();
         $captchaToken = qa_post_text('g-recaptcha-response');
         
-        //0.5 is minimal recaptcha score - it should be configured in admin form
-        $userVerifier = new user_verifier($privateKey, $captchaToken, 0.5);
+        $userVerifier = new user_verifier($privateKey, $captchaToken, $minScore);
         return $userVerifier->is_human();
     }
     
